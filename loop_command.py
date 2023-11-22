@@ -27,7 +27,7 @@ def main():
             # CHANGE THIS COMMAND:
             payload = "snmpbulkwalk -c public -v 2c "+ip.strip()+" . > "+ip.strip()+".log"
             os.system(payload)
-            #print(payload)
+            print(payload)
 
     except KeyboardInterrupt:
             print("abborted loop")
