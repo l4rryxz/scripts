@@ -25,7 +25,7 @@ def main():
     try:
         for ip in f:
             # CHANGE THIS COMMAND:
-            payload = "snmpbulkwalk -c public -v 2c "+ip.strip()+" . | sudo tee "+ip.strip()+".log"
+            payload = "snmpbulkwalk -c public -v 2c "+ip.strip()+" . > "+ip.strip()+".log"
             os.system(payload)
             #print(payload)
 
