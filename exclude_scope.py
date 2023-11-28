@@ -25,7 +25,7 @@ def main():
     f = open(input_file,'r')
     try:
         for ip in f:
-            payload = "ufw deny from any to "+ip.strip()
+            payload = "ufw deny out to "+ip.strip()
             os.system(payload)
             print(payload)
 
