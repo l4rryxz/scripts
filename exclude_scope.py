@@ -11,7 +11,7 @@ def menu():
     print ("\n")
 
 def get_cli_arguments():
-    parser = argparse.ArgumentParser(description=menu(),formatter_class=RawTextHelpFormatter, usage="sudo python3 exclude_scope.py -f --file <input_filename>")
+    parser = argparse.ArgumentParser(description=menu(),formatter_class=RawTextHelpFormatter, usage="sudo python3 exclude_scope.py -f --file <input_filename>\n\nThe following formats are allowed: Single IP, CIDR Mask.\n ")
     parser.add_argument('-f','--file', dest='file', action='store', type=str, help='Source file to create UFW block rules from. Valid Formats: Single IP, CIDR MASK.', required=True)
     args = parser.parse_args()
     return args
