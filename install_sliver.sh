@@ -1,7 +1,7 @@
 #/bin/bash
 
 # required variables
-stager_extension=".md"
+stager_extension=".woff"
 ip=$(curl ifconfig.me)
 
 # apt update && install metasploit
@@ -28,10 +28,10 @@ echo ""
 #unpack sliver to generate config files
 echo "=== Unpack Sliver Binary .. Generating Server Config and Malleable C2 Config ==="
 echo ""
-/opt/sliver/sliver-server-linux unpack --force
-echo ""
+# this does not work for http config, as the server has run before: /opt/sliver/sliver-server-linux unpack --force
+# echo ""
 
-sed 's/.woff/'$stager_extension/'' /root/.sliver/configs/http-c2.json >> /root/.sliver/configs/http-c2_markdown_stager.json
+#sed 's/.woff/'$stager_extension/'' /root/.sliver/configs/http-c2.json >> /root/.sliver/configs/http-c2_markdown_stager.json
 
 echo "=== Generating HTTPS MSF Stager x64 ==="
 echo ""
