@@ -13,7 +13,7 @@ echo "=== Downloading Sliver Binary from github.com ==="
 echo ""
 # download sliver
 mkdir /opt/sliver
-wget https://github.com/BishopFox/sliver/releases/download/v1.7.3/sliver-server_linux-amd64 -O /opt/sliver/sliver-server-linux -nv
+wget https://github.com/BishopFox/sliver/releases/download/v1.5.42/sliver-server_linux -O /opt/sliver/sliver-server-linux -nv
 chmod +x /opt/sliver/sliver-server-linux
 
 echo ""
@@ -22,7 +22,7 @@ echo ""
 echo "=== Creating Sliver Config ==="
 echo ""
 #create operator config
-/opt/sliver/sliver-server-linux operator --lhost $ip --lport 31337 --name l4rry --permissions all
+/opt/sliver/sliver-server-linux operator --lhost $ip --lport 31337 --name l4rry
 cat l4rry_*.cfg
 echo ""
 #unpack sliver to generate config files
