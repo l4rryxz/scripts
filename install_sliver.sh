@@ -14,7 +14,7 @@ echo ""
 # download sliver
 mkdir /opt/sliver
 wget https://github.com/BishopFox/sliver/releases/download/v1.5.42/sliver-server_linux -O /opt/sliver/sliver-server-linux -nv
-wget https://github.com/BishopFox/sliver/releases/download/v1.5.42/sliver-client_linux -O /opt/sliver/sliver-server-client -nv
+wget https://github.com/BishopFox/sliver/releases/download/v1.5.42/sliver-client_linux -O /opt/sliver/sliver-client-linux -nv
 chmod +x /opt/sliver/sliver*
 
 echo ""
